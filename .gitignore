@@ -2,7 +2,8 @@
 .DS_Store
 *.swp
 
-# compressed data files
+# project *.ini and compressed data files
+*.ini
 *.gz
 
 # Object files
