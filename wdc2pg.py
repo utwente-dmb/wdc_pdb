@@ -4,11 +4,12 @@ import gzip
 from configparser import ConfigParser
 import psycopg2
 
-INSERTS_PER_COMMIT = 99
-MAX_INSERT         = 1000
-
+INSERTS_PER_COMMIT = 1024
+VERBOSE            = True
+MAX_INSERT         = 1000000 # sys.maxsize
 
 def convert_json(jsonzip=None,tablename=None):
+    """ Convert the .gz JSON input to a table in de PostgreSQL database """
     try:
        execute_pg('DROP TABLE IF EXISTS {};'.format(tablename))
        execute_pg('CREATE TABLE {} (URL TEXT,NODE_ID TEXT,CLUSTER_ID BIGINT);'.format(tablename))
@@ -26,6 +27,9 @@ def convert_json(jsonzip=None,tablename=None):
               if total <= MAX_INSERT:
                   cursor.execute('INSERT INTO {} (URL, NODE_ID, CLUSTER_ID) VALUES(%s, %s, %s);'.format(tablename), (d['url'], d['nodeID'], int(d['cluster_id'])))
               if inserted >= INSERTS_PER_COMMIT:
+                  if VERBOSE:
+                      sys.stdout.write('.')
+                      sys.stdout.flush()
                   inserted = 0
                   conn_pg.commit()
                   cursor.close()
@@ -34,9 +38,20 @@ def convert_json(jsonzip=None,tablename=None):
               conn_pg.commit() 
               cursor.close()
               cursor = None
-       print("# Succesfully inserted {} tuples in {}".format(total,tablename))
+          if VERBOSE:
+              sys.stdout.write('\n')
+       if VERBOSE:
+           print("# Succesfully inserted {} tuples in {}".format(total,tablename))
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
+def check_json(jsonzip=None):
+    with gzip.open(jsonzip) as fp:
+        for line in fp:
+            d = json.loads(line)
+            if not d['nodeID'].startswith('_'):
+                print('***ERROR: invalid nodeID:')
+                print(json.dumps(d, indent=4))
 
 def config(configname='database.ini', section='postgresql'):
     # create a parser
@@ -65,7 +80,8 @@ def connect_pg(configname='database.ini'):
         params = config(configname=configname)
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        if VERBOSE:
+            print('Connecting to the PostgreSQL database...')
         global conn_pg
         conn_pg = psycopg2.connect(**params)
 		
@@ -73,14 +89,17 @@ def connect_pg(configname='database.ini'):
         cur = conn_pg.cursor()
         
 	# execute a statement
-        print('PostgreSQL database version:')
+        if VERBOSE:
+            print('PostgreSQL database version:')
         cur.execute('SELECT version()')
 
         # display the PostgreSQL database server version
         db_version = cur.fetchone()
-        print(db_version)
+        if VERBOSE:
+            print(db_version)
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+        exit() # pretty fatal
 
 
 def close_pg():
@@ -88,7 +107,8 @@ def close_pg():
     try:
         if conn_pg is not None:
             conn_pg.close()
-            print('Database connection closed.')
+            if VERBOSE:
+                print('Database connection closed.')
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
@@ -103,6 +123,7 @@ def execute_pg(sql_stat=None):
 
 if __name__ == '__main__':
     connect_pg(configname='database.ini')
-    convert_json(jsonzip='./sample_offersenglish.json.gz',tablename='WDC_OFF_ENG')
+    # check_json(jsonzip='./offers_english.json.gz')
     # convert_json(jsonzip='./offers_english.json.gz',tablename='WDC_OFF_ENG')
+    convert_json(jsonzip='./sample_offersenglish.json.gz',tablename='WDC_OFF_ENG')
     close_pg()

@@ -1,0 +1,123 @@
+# Experiment: load 1M nodes and look if they are in multiple clusters
+
+SELECT NODE_ID, count_cluster 
+FROM (
+        SELECT NODE_ID, count(cluster_ID) AS count_cluster 
+        FROM  WDC_OFF_ENG GROUP BY NODE_ID
+) AS nested
+WHERE count_cluster > 1
+ORDER BY count_cluster DESC;
+
+node_id                                           | count_cluster 
+------------------------------------------------------------------
+ _:node0deb26c73b08a1f7d6c00a0786a10              |             2
+ _:node109bda10ab644770d7143c41ae5c651f           |             2
+ _:node115d1ea06b1ef6446b4e8a1eb617576            |             2
+ _:node1688b0b6aa76d01bc15af225df1e34dc           |             2
+ _:node2047773f674e8ba536158d17ac983ed6           |             2
+ _:node24b25422b468dfa3ff66e8cdab4b977            |             2
+ _:node24b56138d7cdd57c61090e99f7f86d0            |             2
+ _:node2ab9cb24377ac5765658e2186ce4854            |             2
+ _:node2be87460c8461686f34eaf22ba92aca7           |             2
+ _:node2c1fdc5a16d878df0e9fb36c3a44488            |             2
+ _:node2eea74f65297885b1a36bca74e7bd3             |             2
+ _:node2fe5914e6da313fa653e4b6ba1dde              |             2
+ _:node37292ca87e7d5e4574756cf9c315a6             |             2
+ _:node3731cbc7b0fa98a4fa05e636e9d8ec5            |             2
+ _:node43c867c88ba711e3183a159a858a480            |             2
+ _:node4428db791be05023f3c7b51262a57c             |             2
+ _:node449874bd64653e32b021fb9fc3e32a2            |             2
+ _:node458a10e61b71d574a3f0b7819e91d1c            |             2
+ _:node4866202c6a895ce2359c1d62dded4ea3           |             2
+ _:node493852d7d743ad0c4ff72a4e5a071              |             2
+ _:node4d70fe955777eeac29763826db221ad0           |             2
+ _:node506ce29265a458ffc9d2d2c4383a6e5            |             2
+ _:node50e4240a7fa1b84dfff3e53b4869d7a            |             2
+ _:node52253584366153c14688e12e7e9eada            |             2
+ _:node53908cac20c15934b23bc41d1e4158af           |             2
+ _:node53f9cb8d417a6e34c675123d50c5118f           |             2
+ _:node54b04fd4952a85cc88ddab23126aacad           |             2
+ _:node56707d4fdd27e2f8fc4344e2acedb              |             2
+ _:node59a2b6e9fb4a98839e6ea23c7f268b7            |             2
+ _:node5dfe8e56128853e43cbc6f479c66bb             |             2
+ _:node5eda95d7a4b45833ff1b376acc53297            |             2
+ _:node61c2a3ee9564741e72aec9e985fd69             |             2
+ _:node6430ed6bd317de1cada66e897c5675c            |             2
+ _:node6524f19f277966bc184c2b51ca49e              |             2
+ _:node691cb07c7a24f8498f8415e9b81359d            |             2
+ _:node6acb1fc89365da752a416af12187d71            |             2
+ _:node6cd554b7284e9fd66d48b66f296799             |             2
+ _:node6d62cc2f3e2a878a1c12c1bbbf89c              |             2
+ _:node6ecfb4f6c5d39460285e556f934cfb7            |             2
+ _:node76036b14fe075bb93e049a7ebf2c9c3            |             2
+ _:node787d22ff4f2517901f629c3fa3453053           |             2
+ _:node7a76d06093a3d758cec044db9fac4d1c           |             2
+ _:node7afa24af7f9d85fac4f85f2f4be15c4f           |             2
+ _:node7e1bc0eb440322c122de5803661882b            |             2
+ _:node7f1cca302aba21ff6ef639bfe768e5             |             2
+ _:node82b3a70baee35d1acc70934bdfcd32             |             2
+ _:node83fc5ec808f839063567d3fc3f7ed1a            |             2
+ _:node8564bd9e5d44f6a3ccea738befeb1dca           |             2
+ _:node85dbef23ba3e4ada2f177e99671cc964           |             2
+ _:node86907c63e18343178ce9ec76b9983d9            |             2
+ _:node889ce635aeef68d96d4ed6a81ee24c             |             2
+ _:node8b3f4b69178fd4fa15aa87889c07362            |             2
+ _:node8ba825a67fff38eade6ed28598370b5            |             2
+ _:node8cab73c11d858ee46b911b6ab8959ea1           |             2
+ _:node8ce35cc3c3953e02d4bdf93ca47e8d5            |             2
+ _:node8ce8a591b4867168c3f5845e34e6d028           |             2
+ _:node8f4eb96de9a13272fb96085d26f6180            |             2
+ _:node8f8bd371e710873baa573527c4ce82e6           |             2
+ _:node965a87852779a783b7ddb41f39682c3            |             2
+ _:node97fbb8657a5307e2bf520a45dbeb65a            |             2
+ _:nodea0c7c34cf811d32fa1cf4c1419dba              |             2
+ _:nodea0fe591773427eba7f22f0b02ccb6b72           |             2
+ _:nodea2685cc52eec4d62167dfa83e0c1bf             |             2
+ _:nodea2932a3b725b9b9e25ffc8df6a9dc755           |             2
+ _:nodea3c984fe6c774d3efe437479d7f540f4           |             2
+ _:nodea74cee8059b17c2c1a8baefe3b7146fb           |             2
+ _:nodea93344bf7ebe5de83df4d626ac7debfa           |             2
+ _:nodeaacdca9ea546c6d54c1ab77c9afc92             |             2
+ _:nodeab4fec134dc896ecb1e7f6ac4f383bfa           |             2
+ _:nodeb06e6fa0b0f2f6d2c37ecbf9b0d93b2d           |             2
+ _:nodeb31dc3c5456c1f80fec466836a4bc2d3           |             2
+ _:nodeb362af873cb717e51e99fc429ef1f3f            |             2
+ _:nodeb3a6c61c781ed1992333e196f1c4e24d           |             2
+ _:nodeb3e11beb6f191cb144cde1fff82be1f            |             2
+ _:nodeb5ba3240aea250db864a1f2cf412b31            |             2
+ _:nodeb8fb9e21423228331ea16d2f67d0f5f7           |             2
+ _:nodeba5376caa81261f6a9a223aa6c3c849c           |             2
+ _:nodeba6da5abf8b5c6f2c942f0d234d95              |             2
+ _:nodebde6a7589f5596abc917a23c648c26a            |             2
+ _:nodec44a85b0e990d02cd8c1da8e30da6fc            |             2
+ _:nodec4f1288e48d3a4b6828cd05bcf6551cd           |             2
+ _:nodec6ab9910feab6a13462f3dd6a7fb948            |             2
+ _:nodec76f19dc7930b3da7efe75ec34a1613            |             2
+ _:nodec8b84a8e944761398bcea7afc0d3b78e           |             2
+ _:nodecc98115914b51f83830db763bc0b68             |             2
+ _:nodecd5f4b5ca226c25c96b8427629c52940           |             2
+ _:nodece1d9cfeb91cf7285b4d1299d817048            |             2
+ _:noded952febdcd36108b76432dfa8cca9bb            |             2
+ _:nodedaf7d34c14fdfb23b4c79ab998e6ef7            |             2
+ _:nodedbaf133d27a4f1695097f5fdbe7b2db            |             2
+ _:nodedfc03394ca8269555f5861118abf1c4            |             2
+ _:nodee071c9126434199881e4e4835df                |             2
+ _:nodee0f16fafb9fb95a434eeb4fa56a64835           |             2
+ _:nodeea5c84f33c084aaf616a4ff5780f511            |             2
+ _:nodeeaad545bc8334e844f2fc3537ec9c33            |             2
+ _:nodeeb8f134cecbce26fedfa66351d7c66bd           |             2
+ _:nodefd7f5ddd1fb7d2d4e6b917dcd4b263c            |             2
+ _:nodefdc43ec9f01e402715d71f77687c52c8           |             2
+ _:nodefec93e22a6e5a382ebe0d6718cf1bde7           |             2
+ _:nodeff9fd6b3d8be902c501cf111943428fb           |             2
+(102 rows)
+
+ERRORS in DATASET:
+------------------
+
+Zijn dit de nuggets:-)
+
+These are nodes in the dataset which have a URL style NODE_ID!
+
+ <https://ru.iherb.com/pr/Solgar-Omega-3-EPA-DHA-Triple-Strength-950-mg-100-Softgels/26738> |             2
+ <https://www.iherb.com/pr/Jarrow-Formulas-B-Right-100-Veggie-Caps/110>                     |             3

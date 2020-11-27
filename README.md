@@ -15,7 +15,7 @@ Postgres connection package psycopg2
 pip3 install psycopg2
 ```
 
-To connect to the database copy the database.ini.tmpl to database.ini and fill
+To connect to the database copy the <B>database.ini.tmpl</B> to <B>database.ini</B> and fill
 in your connection parameters. The *.ini files are not uploaded to the 
 git repository for obvious security reasons.
 
