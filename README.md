@@ -37,7 +37,13 @@ repository.
 
 ## Run
 
-When the database connections is specified and the data is downloaded you can 
-run the wdc2pg.py python program. To change the input json file or the name of
-the generated Postgres table change the parameter of the convert_json() function
+When the database connection is specified and the data is downloaded you can 
+run the wdc2pg.py python program. 
+
+```bash
+python3 wdc2pg.py
+```
+
+To change the input json file or the name of
+the generated Postgres table change the parameter of the <I>convert_json</I>() function
 call at the bottom of the file.
