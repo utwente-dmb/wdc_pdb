@@ -7,7 +7,8 @@ import psycopg2
 INSERTS_PER_COMMIT = 99
 MAX_INSERT         = 1000
 
-def read_json(jsonzip=None,tablename=None):
+
+def convert_json(jsonzip=None,tablename=None):
     try:
        execute_pg('DROP TABLE IF EXISTS {};'.format(tablename))
        execute_pg('CREATE TABLE {} (URL TEXT,NODE_ID TEXT,CLUSTER_ID BIGINT);'.format(tablename))
@@ -33,7 +34,7 @@ def read_json(jsonzip=None,tablename=None):
               conn_pg.commit() 
               cursor.close()
               cursor = None
-       print("# Succesfully inserted {} tuples in {}\n".format(total,tablename))
+       print("# Succesfully inserted {} tuples in {}".format(total,tablename))
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
@@ -102,6 +103,6 @@ def execute_pg(sql_stat=None):
 
 if __name__ == '__main__':
     connect_pg(configname='database.ini')
-    # read_json(jsonzip='./sample_offersenglish.json.gz',tablename='WDC_OFF_ENG')
-    read_json(jsonzip='./offers_english.json.gz',tablename='WDC_OFF_ENG')
+    convert_json(jsonzip='./sample_offersenglish.json.gz',tablename='WDC_OFF_ENG')
+    # convert_json(jsonzip='./offers_english.json.gz',tablename='WDC_OFF_ENG')
     close_pg()
