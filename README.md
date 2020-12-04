@@ -44,6 +44,13 @@ run the wdc2pg.py python program.
 python3 wdc2pg.py
 ```
 
-To change the input json file or the name of
+To change the input json file or the basename (TABLEBASE} of
 the generated Postgres table change the parameter of the <I>convert_json</I>() function
 call at the bottom of the file.
+
+The program creates two tables in the database. The first {TABLEBASE}_key contains the url, node_id pairs which are key to the offer and an autoincrement 'key'.
+The other {TABLEBASE}_offer table contains this offer 'key' together  with the cluster_id and the 15 most used offer properties as listed in the WDC document Figure 1.
+The attributes from the top15 are automatically generated from the TOP15PROPERTIES list in the wdc2pg.py file. When properties are added or removed they will
+automatically be added to the table and converted by the python program.
+
+The program is not very fast. The conversion of the complete 16M English offer will take approx 5 hours on my MacBook.

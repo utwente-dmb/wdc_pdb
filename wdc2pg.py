@@ -132,7 +132,7 @@ def add_top_property(pl,label,new_d):
                 # strip [] and leading/trailing spaces
                 val = val[1:len(val)-1].strip()
             new_d[label] = val
-            print(label,'=',val)
+            # print(label,'=',val)
             return True
     return False
 
@@ -222,6 +222,6 @@ def execute_pg(sql_stat=None):
 if __name__ == '__main__':
     connect_pg(configname='database.ini')
     # analyze_json(jsonzip='./sample_offersenglish.json.gz')
-    # convert_json(jsonzip='./offers_english.json.gz',tablebase='WDC_ENG')
-    convert_json(jsonzip='./sample_offersenglish.json.gz',tablebase='WDC_ENG')
+    convert_json(jsonzip='./offers_english.json.gz',tablebase='WDC_ENG')
+    # convert_json(jsonzip='./sample_offersenglish.json.gz',tablebase='WDC_ENG')
     close_pg()
