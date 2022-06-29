@@ -1,5 +1,9 @@
 # README
 
+This README is copied from the old repository for version 1 of the wdc dataset. An updated README is expected soon.
+
+# VERSION 1
+
 This is a git repository from the Twente University [Gitlab](https://git.snt.utwente.nl/) server. To clone this repository do:
 
 ```bash
@@ -32,7 +36,7 @@ The big (16M+) English repository used for testing is:
 
 <http://data.dws.informatik.uni-mannheim.de/largescaleproductcorpus/data/offers_english.json.gz>
 
-The .gitignore file for this projects prevents .gz file being added to the
+The .gitignore file for this project prevents .gz file being added to the
 repository.
 
 ## Run
